@@ -1,0 +1,34 @@
+name: 'Build and Deploy Image'
+description: Build a container image from a Dockerfile, push to GDR, and deploy to GKE.
+author: Colin Campbell
+inputs:
+  gcrHostname:
+    description: The Google Docker Registry hostname.
+    required: true
+  gkeApplicationCredentials:
+    description: The service account credentials JSON file encoded as a base64 string to access the GKE API.
+    required: true
+  gkeNamespace:
+    description: The Kubernetes cluster's namespace.
+  gkeProjectID:
+    description: The GKE project identifier (kube-cluster-12345).
+    required: true
+  gkeClusterName:
+    description: The name of the Kubernetes cluster.
+    required: true
+  gkeLocationZone:
+    description: The cluster's location zone.
+    required: true
+  gitUsername:
+    description: The git username to use when cloning dependencies.
+    required: true
+  gitAccessToken:
+    description: The access token associated with the user passed to gitUsername.
+    required: true
+  requiresTALib:
+    description: Whether or not the image requires the use of TA-Lib.
+    required: false
+    default: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
