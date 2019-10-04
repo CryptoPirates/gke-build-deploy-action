@@ -10,6 +10,7 @@ service docker start
 echo "Installing gcloud and kubectl"
 curl -sSL https://sdk.cloud.google.com | bash
 PATH=$PATH:/root/google-cloud-sdk/bin
+source ~/.bashrc
 gcloud components install kubectl
 kubectl version
 
