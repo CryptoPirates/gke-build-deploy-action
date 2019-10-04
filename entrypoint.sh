@@ -25,19 +25,19 @@ echo "Getting kubeconfig file from GKE"
 echo "${INPUT_GKEAPPLICATIONCREDENTIALS}" | base64 -d > /tmp/account.json
 gcloud auth configure-docker
 gcloud auth activate-service-account --key-file=/tmp/account.json
-gcloud config set project "${INPUT_GKEPROJECTID}"
-gcloud container clusters get-credentials "${INPUT_GKECLUSTERNAME}" --zone "${INPUT_GKELOCATIONZONE}" --project "${INPUT_GKEPROJECTID}"
+gcloud config set project $INPUT_GKEPROJECTID
+gcloud container clusters get-credentials $INPUT_GKECLUSTERNAME --zone $INPUT_GKELOCATIONZONE --project $INPUT_GKEPROJECTID
 export KUBECONFIG="$HOME/.kube/config"
 
 echo "Building image from Dockerfile"
 docker build \
     --build-arg "USERNAME=${INPUT_GITUSERNAME}" \
     --build-arg "ACCESSTOKEN=${INPUT_GITACCESSTOKEN}" \
-    -t "${INPUT_GCRHOSTNAME}"/${{ secrets.GKE_PROJECT_ID }}/feed-analyzer:$GITHUB_SHA .
+    -t $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/feed-analyzer:$GITHUB_SHA .
 
 echo "Pushing to Docker registry"
-docker tag "${INPUT_GCRHOSTNAME}"/"${INPUT_GKEPROJECTID}"/feed-analyzer:$GITHUB_SHA "${INPUT_GCRHOSTNAME}"/"${INPUT_GKEPROJECTID}"/feed-analyzer:latest
-docker push "${INPUT_GCRHOSTNAME}"/"${INPUT_GKEPROJECTID}"/feed-analyzer
+docker tag $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/feed-analyzer:$GITHUB_SHA $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/feed-analyzer:latest
+docker push $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/feed-analyzer
 
 echo "Deploy to GKE"
-kubectl set image deployment/feed-analyzer feed-analyzer-sha256="${INPUT_GKEHOSTNAME}"/"${INPUT_GKEPROJECTID}"/feed-analyzer -n "${INPUT_GKENAMESPACE}"
+kubectl set image deployment/feed-analyzer feed-analyzer-sha256=$INPUT_GKEHOSTNAME/$INPUT_GKEPROJECTID/feed-analyzer -n $INPUT_GKENAMESPACE
