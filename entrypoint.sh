@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export GOPRIVATE=github.com/cryptopirates
-
 echo "Configuring git"
 git config --global url."https://${INPUT_GITUSERNAME}:${INPUT_GITACCESSTOKEN}@github.com".insteadOf "https://github.com"
 
