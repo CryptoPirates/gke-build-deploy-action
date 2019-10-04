@@ -17,6 +17,9 @@ inputs:
   gkeClusterName:
     description: The name of the Kubernetes cluster.
     required: true
+  gkeDeploymentName:
+    description: The name of the container's deployment.
+    required: true
   gkeLocationZone:
     description: The cluster's location zone.
     required: true

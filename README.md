@@ -19,6 +19,10 @@ Build a container image from a Dockerfile, push to GDR, and deploy to GKE.
 
 **Required** The name of the Kubernetes cluster.
 
+### `dkeDeploymentName`
+
+**Required** The name of the container's deployment.
+
 ### `gkeLocationZone`
 
 **Required** The cluster's location zone.
@@ -41,6 +45,7 @@ with:
     gkeNamespace: ${{ secrets.GKE_NAMESPACE }}
     gkeProjectID: ${{ secrets.GKE_PROJECT_ID }}
     gkeClusterName: ${{ secrets.GKE_CLUSTER_NAME }}
+    gkeDeploymentName: ${{ secrets.GKE_DEPLOYMENT_NAME }}
     gkeLocationZone: ${{ secrets.GKE_LOCATION_ZONE }}
     gitUsername: ${{ secrets.GIT_USERNAME }}
     gitAccessToken: ${{ secrets.GIT_ACCESS_TOKEN }}
