@@ -1,4 +1,4 @@
-FROM golang:1.13-buster as builder
+FROM golang:1.13-alpine as builder
 
 COPY entrypoint.sh /entrypoint.sh
 

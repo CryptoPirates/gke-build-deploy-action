@@ -10,6 +10,7 @@ inputs:
     required: true
   gkeNamespace:
     description: The Kubernetes cluster's namespace.
+    required: true
   gkeProjectID:
     description: The GKE project identifier (kube-cluster-12345).
     required: true
@@ -25,10 +26,6 @@ inputs:
   gitAccessToken:
     description: The access token associated with the user passed to gitUsername.
     required: true
-  requiresTALib:
-    description: Whether or not the image requires the use of TA-Lib.
-    required: false
-    default: false
 runs:
   using: 'docker'
   image: 'Dockerfile'

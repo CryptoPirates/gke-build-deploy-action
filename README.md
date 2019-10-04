@@ -31,10 +31,6 @@ Build a container image from a Dockerfile, push to GDR, and deploy to GKE.
 
 **Required** The access token associated with the user passed to gitUsername.
 
-### `requiresTALib`
-
-**Optional** (Defaults to false) Whether or not the image requires the use of TA-Lib.
-
 ## Example usage
 
 ```yaml
@@ -48,5 +44,4 @@ with:
     gkeLocationZone: ${{ secrets.GKE_LOCATION_ZONE }}
     gitUsername: ${{ secrets.GIT_USERNAME }}
     gitAccessToken: ${{ secrets.GIT_ACCESS_TOKEN }}
-    requiresTALib: true
 ```
