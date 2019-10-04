@@ -38,7 +38,7 @@ Build a container image from a Dockerfile, push to GDR, and deploy to GKE.
 ## Example usage
 
 ```yaml
-uses: cryptopirates/gke-build-deploy-action
+uses: cryptopirates/gke-build-deploy-action@master
 with:
     gcrHostname: ${{ secrets.GCR_HOSTNAME }}
     gkeApplicationCredentials: ${{ secrets.GKE_APPLICATION_CREDENTIALS }}
