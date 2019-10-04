@@ -4,7 +4,7 @@ echo "Configuring git"
 git config --global url."https://${INPUT_GITUSERNAME}:${INPUT_GITACCESSTOKEN}@github.com".insteadOf "https://github.com"
 
 echo "Installing docker"
-apk add --update python curl which bash docker
+apk add --update docker
 service docker start
 
 echo "Installing gcloud and kubectl"
