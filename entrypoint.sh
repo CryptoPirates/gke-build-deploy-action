@@ -30,14 +30,21 @@ gcloud config set project $INPUT_GKEPROJECTID
 gcloud container clusters get-credentials $INPUT_GKECLUSTERNAME --zone $INPUT_GKELOCATIONZONE --project $INPUT_GKEPROJECTID
 export KUBECONFIG="$HOME/.kube/config"
 
+echo "Creating tag"
+read -ra BADDR <<< "${GITHUB_REF}"
+BIDX=${#BADDR[@]}-1
+BRANCH="${BADDR[${BIDX}]}"
+COMMIT=$(echo $GITHUB_SHA | cut -c1-7)
+TAG="${BRANCH}-${COMMIT}"
+
 echo "Building image from Dockerfile"
 docker build \
     --build-arg "USERNAME=${INPUT_GITUSERNAME}" \
     --build-arg "ACCESSTOKEN=${INPUT_GITACCESSTOKEN}" \
-    -t $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:$GITHUB_SHA .
+    -t $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:$TAG .
 
 echo "Pushing to Docker registry"
-docker tag $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:$GITHUB_SHA $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:latest
+docker tag $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:$TAG $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:latest
 docker push $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME
 
 echo "Deploy to GKE"
