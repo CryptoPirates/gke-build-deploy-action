@@ -1,5 +1,8 @@
 # GKE Build Deploy Action
-Build a container image from a Dockerfile, push to GDR, and deploy to GKE.
+Build a container image from a Dockerfile, push to GCR, and deploy to GKE. Some things to note:
+
+- The image is tagged with the current branch and first seven characters of the commit's hash (master-a1b2c3d)
+- The action will attempt to update the deployment's config map by looking for the file `/.gke/values.env`.
 
 ## Inputs
 
