@@ -49,9 +49,9 @@ docker push $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME
 
 ENVPROPFILE=.gke/values.env
 if test -f "$ENVPROPFILE"; then
-    echo "Found environment.properties file. Creating config map."
+    echo "Found values.env file. Creating config map."
     cd .gke
-    kubectl create configmap $REPONAME-config --from-env-file=values.env --output=yaml --save-config=true -n $INPUT_GKENAMESPACE
+    kubectl create configmap $REPONAME-config --from-env-file=values.env --output=yaml --dry-run=true -n $INPUT_GKENAMESPACE | kubectl apply -f -
     cd ..
 fi
 
