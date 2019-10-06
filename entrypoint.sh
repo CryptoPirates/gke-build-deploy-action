@@ -47,11 +47,11 @@ echo "Pushing to Docker registry"
 docker tag $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:$TAG $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:latest
 docker push $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME
 
-ENVPROPFILE=./.gke/values.env
+ENVPROPFILE=.gke/values.env
 if test -f "$ENVPROPFILE"; then
     echo "Found environment.properties file. Creating config map."
-    echo "Running kubectl create configmap ${REPONAME}-config --from-env-file=${ENVPROPFILE} --output=yaml --save-config=true"
-    kubectl create configmap $REPONAME-config --from-env-file=$ENVPROPFILE --output=yaml --save-config=true
+    cd .gke
+    kubectl create configmap $REPONAME-config --from-env-file=values.env --output=yaml --save-config=true
 fi
 
 echo "Deploy to GKE"
