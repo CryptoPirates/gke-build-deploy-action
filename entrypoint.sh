@@ -51,7 +51,8 @@ ENVPROPFILE=.gke/values.env
 if test -f "$ENVPROPFILE"; then
     echo "Found environment.properties file. Creating config map."
     cd .gke
-    kubectl create configmap $REPONAME-config --from-env-file=values.env --output=yaml --save-config=true
+    kubectl create configmap $REPONAME-config --from-env-file=values.env --output=yaml --save-config=true -n $INPUT_GKENAMESPACE
+    cd ..
 fi
 
 echo "Deploy to GKE"
