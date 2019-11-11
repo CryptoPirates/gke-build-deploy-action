@@ -49,11 +49,3 @@ docker push $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME
 
 echo "Deploy to GKE"
 kubectl set image deployment/$REPONAME $INPUT_GKEDEPLOYMENTNAME=$INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:latest -n $INPUT_GKENAMESPACE
-
-ENVPROPFILE=.gke/values.env
-if test -f "$ENVPROPFILE"; then
-    echo "Found values.env file. Creating config map."
-    cd .gke
-    kubectl create configmap $REPONAME-config --from-env-file=values.env --output=yaml --dry-run=true -n $INPUT_GKENAMESPACE | kubectl apply -f -
-    cd ..
-fi
