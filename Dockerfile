@@ -1,4 +1,4 @@
-FROM golang:1.14 as builder
+FROM 1.14.4-alpine3.11 as builder
 
 RUN apk add --update python curl which bash git
 
