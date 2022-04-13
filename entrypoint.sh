@@ -48,4 +48,4 @@ docker tag $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME:$TAG $INPUT_GCRHOSTN
 docker push $INPUT_GCRHOSTNAME/$INPUT_GKEPROJECTID/$REPONAME || exit 1
 
 echo "Deploy to GKE"
-helm upgrade --set imageTag=$TAG $INPUT_GKEDEPLOYMENTNAME ./helm
+helm upgrade --set imageTag=$TAG $INPUT_GKEDEPLOYMENTNAME ./helm || helm install $INPUT_GKEDEPLOYMENTNAME ./helm
